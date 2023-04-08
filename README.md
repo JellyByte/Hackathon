@@ -1,4 +1,4 @@
-#Hackathon Code Warriors  
+# Hackathon Code Warriors Team
 
 [![Travis branch](https://img.shields.io/badge/build-passing-green)]()  
 
