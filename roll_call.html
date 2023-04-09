@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Roll Call System</title>
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+		integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/1z7/pXO/s1tQaC7l7gD2p3J3u5K5pTC9XpbDpY"
+		crossorigin="anonymous"></script>
+	<script>
+		function displayStudentName(studentName) {
+			const studentNameEl = document.getElementById("student-name");
+			studentNameEl.textContent = studentName;
+		}
+	</script>
+	<style>
+		footer {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			left: 0;
+		}
+	</style>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+	<div class="container mx-auto py-20 px-4 flex-grow flex flex-col items-center justify-center">
+		<h1 class="text-4xl font-bold text-gray-800 mb-8">Roll Call System</h1>
+		<div class="text-gray-800">
+			<p class="text-lg font-bold">The next student to call:</p>
+			<h2 id="student-name" class="text-2xl font-bold mt-4">---</h2>
+		</div>
+	</div>
+	<footer class="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 py-4">
+		<div class="container mx-auto px-4 flex justify-end items-center">
+			<a href="https://github.com/JellyByte/Hackathon" target="_blank"
+				class="text-white hover:text-gray-300 transition-colors duration-300">
+				<i class="fab fa-github fa-2x"></i>
+			</a>
+			<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"
+				alt="" class="ml-2">
+		</div>
+	</footer>
+	<script>
+		const socket = new WebSocket('ws://localhost:8765');
+		socket.addEventListener('message', event => {
+			const studentName = event.data;
+			displayStudentName(studentName);
+		});
+	</script>
+</body>
+
+</html>
