@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Attendance</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
+	<style>
+		@keyframes zoom-in {
+			0% {
+				transform: scale(0);
+				opacity: 0;
+			}
+
+			100% {
+				transform: scale(1);
+				opacity: 1;
+			}
+		}
+
+		.card {
+			animation: zoom-in 0.5s ease;
+		}
+
+		.selected {
+			background-color: #e2e8f0;
+		}
+	</style>
+</head>
+
+<body
+	class="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 min-h-screen flex flex-col items-center justify-center">
+	<div class="container mx-auto py-10 px-4 flex-grow">
+		<div class="text-center text-white">
+			<h1 class="text-4xl font-bold mb-10">Attendance</h1>
+		</div>
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
+			<div class="card bg-white rounded-lg p-8 flex flex-col justify-center items-center hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+				data-student="Student 1">
+				<h2 class="text-2xl font-bold mb-4">Student 1</h2>
+				<label class="inline-flex items-center mt-3">
+					<input type="checkbox" class="form-checkbox h-6 w-6 text-blue-600" name="attendance[]"
+						value="Student 1">
+					<span class="ml-2 text-gray-700 font-medium">Present</span>
+				</label>
+			</div>
+			<div class="card bg-white rounded-lg p-8 flex flex-col justify-center items-center hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+				data-student="Student 2">
+				<h2 class="text-2xl font-bold mb-4">Student 2</h2>
+				<label class="inline-flex items-center mt-3">
+					<input type="checkbox" class="form-checkbox h-6 w-6 text-blue-600" name="attendance[]"
+						value="Student 2">
+					<span class="ml-2 text-gray-700 font-medium">Present</span>
+				</label>
+			</div>
+			<!-- Add more cards for additional students -->
+		</div>
+		<button id="submit-btn"
+			class="bg-blue-600 text-white px-6 py-4 rounded-lg mt-8 hover:bg-blue-700 transition-colors duration-300">Submit</button>
+	</div>
+	<footer class="absolute bottom-0 right-0 m-4">
+		<a href="https://github.com/JellyByte/Hackathon" target="_blank"
+			class="text-gray-800 hover:text-gray-600 transition-colors duration-300">
+			<i class="fab fa-github fa-2x">
+				<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"
+					alt="">
+			</i>
+		</a>
+	</footer>
+	<script>
+		const cards = document.querySelectorAll('.card');
+		const submitBtn = document.querySelector('#submit-btn');
+		const selected = new Set();
+		cards.forEach(card => {
+			card.addEventListener('mouseover', () => {
+				card.classList.add('selected');
+			});
+			card.addEventListener('mouseout', () => {
+				card.classList.remove('selected');
+			});
+			card.addEventListener('click', () => {
+				const student = card.dataset.student;
+				if (selected.has(student)) {
+					selected.delete(student);
+				} else {
+					selected.add(student);
+				}
+			});
+		});
+
+		submitBtn.addEventListener('click', () => {
+			const attendance = [...selected];
+			console.log(attendance); // Replace with code to export attendance
+			alert('Attendance submitted!');
+			location.reload(); // Reload page to clear selections
+		});
+	</script>
